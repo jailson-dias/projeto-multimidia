@@ -15,7 +15,7 @@ images = [join(path, f) for f in listdir(path) if isfile(join(path, f))]
 
 images = sorted(images, key=lambda x: int(x.split('.')[0][-3:]))
 
-print (images)
+# print (images)
 
 
 # print (images)
@@ -35,14 +35,16 @@ while linhas == 0:
     csvread =  open('data_input.csv', 'r')
     read = csv.reader(csvread, delimiter=',')
 
+    # trainning.csv
+    csvlista =  open('trainning.csv', 'a')
+    writerlista = csv.writer(csvlista, delimiter=',')
+
     linhas = len(list(csvread))
 
-    print (linhas, "\n\n")
+    # print (linhas, "\n\n")
     if linhas<=0:
         writer.writerow(columns)
         linhas = 1
-        print(columns, "column")
-    print ("pegando imagem")
     csvread.close()
     # Instantiates a client
     try:
@@ -54,19 +56,13 @@ while linhas == 0:
             image = vision_client.image(
                 content=content)
             image_file.close()
-
-        #     # print('properties:')
-        #     # properties = image.detect_properties()
-
-
-            print('Labels:')
-        #     # Performs label detection on the image file
             labels = image.detect_labels()
 
-        #     # print (labels)
             row = []
             descs = [l.description for l in labels]
             print (descs)
+            writerlista.writerow(descs)
+            csvlista.close()
             for column in columns:
                 if column in descs:
                     idx = descs.index(column)

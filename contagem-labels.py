@@ -1,7 +1,7 @@
 import json
 import operator
 
-file = open('output.json').read()
+file = open('output-api-imagga.json').read()
 j = json.loads(file)
 d = {}
 for i in j:
@@ -12,4 +12,4 @@ for i in j:
 			d[x["tag"]] = 1
 
 a = sorted(d.items(), key=operator.itemgetter(1), reverse=True)
-print(a)
+print(list(a)[:41])
