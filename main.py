@@ -20,24 +20,25 @@ images = sorted(images, key=lambda x: int(x.split('.')[0][-3:]))
 
 # print (images)
 
-columns = ['leg','shoulder','thigh','joint','muscle','structure','abdomen',
-            'human leg','physical fitness','gym','girl','room','arm','weight training',
-            'standing','photo shoot','trunk','sport venue','leggings','tights','shorts',
-            'photography','beauty','model','undergarment']
+columns = ['shoulder','thigh','leg','joint','abdomen','muscle','structure',
+            'room','physical fitness','arm','gym','girl','human leg','standing',
+            'active undergarment','weight training','undergarment','fashion accessory','leggings',
+            'tights','strength training','trunk','black hair','selfie','human body',
+            'exercise equipment','long hair','lingerie','footwear','model']
 
 linhas = 0
 
 while linhas == 0:
     vision_client = vision.Client('plenary-network-146618')
-    csvfile =  open('data_input.csv', 'a')
+    csvfile =  open('data_input_google.csv', 'a')
     writer = csv.writer(csvfile, delimiter=',')
     
-    csvread =  open('data_input.csv', 'r')
+    csvread =  open('data_input_google.csv', 'r')
     read = csv.reader(csvread, delimiter=',')
 
     # trainning.csv
-    csvlista =  open('trainning.csv', 'a')
-    writerlista = csv.writer(csvlista, delimiter=',')
+    # csvlista =  open('trainning.csv', 'a')
+    # writerlista = csv.writer(csvlista, delimiter=',')
 
     linhas = len(list(csvread))
 
@@ -61,8 +62,8 @@ while linhas == 0:
             row = []
             descs = [l.description for l in labels]
             print (descs)
-            writerlista.writerow(descs)
-            csvlista.close()
+            # writerlista.writerow(descs)
+            # csvlista.close()
             for column in columns:
                 if column in descs:
                     idx = descs.index(column)
