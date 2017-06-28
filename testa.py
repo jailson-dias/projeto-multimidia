@@ -34,5 +34,3 @@ def getdadosgoogle(file_name, follows):
     except Exception:
         print ("error")
         return getdadosgoogle(file_name,follows)
-
-# print (getdadosgoogle('images/image001.jpg',2541))

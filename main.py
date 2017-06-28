@@ -12,13 +12,7 @@ from google.cloud import vision
 path = os.path.join(os.path.dirname(__file__),'images')
 images = [join(path, f) for f in listdir(path) if isfile(join(path, f))]
 
-
 images = sorted(images, key=lambda x: int(x.split('.')[0][-3:]))
-
-# print (images)
-
-
-# print (images)
 
 columns = ['shoulder','thigh','leg','joint','abdomen','muscle','structure',
             'room','physical fitness','arm','gym','girl','human leg','standing',
@@ -36,18 +30,13 @@ while linhas == 0:
     csvread =  open('data_input_google.csv', 'r')
     read = csv.reader(csvread, delimiter=',')
 
-    # trainning.csv
-    # csvlista =  open('trainning.csv', 'a')
-    # writerlista = csv.writer(csvlista, delimiter=',')
-
     linhas = len(list(csvread))
 
-    # print (linhas, "\n\n")
     if linhas<=0:
         writer.writerow(columns)
         linhas = 1
     csvread.close()
-    # Instantiates a client
+
     try:
         for file_name in images[linhas-1:]:
             # Loads the image into memory
@@ -62,8 +51,7 @@ while linhas == 0:
             row = []
             descs = [l.description for l in labels]
             print (descs)
-            # writerlista.writerow(descs)
-            # csvlista.close()
+            
             for column in columns:
                 if column in descs:
                     idx = descs.index(column)
