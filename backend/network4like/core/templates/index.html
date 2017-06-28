@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Network4Like</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="../static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="../static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+    <nav class="white" role="navigation">
+        <div class="nav-wrapper container">
+            <a id="logo-container" href="index.html" class="brand-logo">Network4Like</a>
+            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+        </div>
+    </nav>
+
+    <div id="index-banner" class="parallax-container" style="height: 500px">
+        <div class="section no-pad-bot">
+            <div class="container">
+                <!-- <br><br> -->
+                <h1 class="header center  text-lighten-2">Network4Like</h1>
+                <!-- <h1></h1> -->
+                <div class="row center" style="">
+                    <h3 class="header col s12 light bold " style="top: 100px; font-weight: 500; position: relative">Ferramenta de auxilo à sua visibilidade no Instagram</h3>
+                </div>
+                <div class="row center" style="top: 100px; position: relative">
+                    <form action="/" method="post">{% csrf_token %}
+                        <div class="file-field input-field" style="width: 810px;float: left;">
+                            <div class="btn indigo darken-4">
+                                <span>Insira aqui a sua foto!</span>
+                                <input type="file">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn waves-effect waves-light indigo darken-4" type="submit" name="action" style="float: left;">Submit
+                            <i class="material-icons right">send</i>
+                            </button>
+                        </div>  
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="parallax"><img class="responsive-img" src="../static/image/background.jpg" alt="Unsplashed background img 1"></div>
+    </div>
+
+    <div class="container" style="height: 300px">
+        <div class="section" style="text-align: center;position: relative;top: 90px;">
+        <h3>Quantos likes sua foto terá no Instagram?</h3>
+        </div>
+    </div>
+
+    <footer class="page-footer teal ">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">About</h5>
+                    <p class="grey-text text-lighten-4">Projeto desenvolvido para a disciplina de Introdução a Multimidia. Utilizando API Google Plataform e uma rede neural desenvolvida em python</p>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Componentes</h5>
+                    <ul>
+                        <li><a class="white-text" href="https://www.facebook.com/dias.jailson4">Jailson Dias</a></li>
+                        <li><a class="white-text" href="https://www.facebook.com/lLeonardoAlvs">Leonardo Alves</a></li>
+                        <li><a class="white-text" href="https://www.facebook.com/luiz.neto.900">Luiz Reis</a></li>
+                        <li><a class="white-text" href="https://www.facebook.com/marcos.barreto.3720">Marcos Barreto</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                Made by <a class="brown-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+            </div>
+        </div>
+    </footer>
+
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="../static/js/materialize.js"></script>
+    <script src="../static/js/init.js"></script>
+
+    </body>
+</html>
