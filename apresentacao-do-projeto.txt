@@ -1,0 +1,17 @@
+Em resumo, a proposta do projeto é estimar a quantidade de likes que, dada uma foto que será postada no Instagram, e o número de followers do usuário, o sistema preditar o número de likes que esta foto receberá. O algoritmo está fechado para um tipo de foto, mulheres fitness que postam fotos na academia.
+
+O projeto foi feito em Python, e utilizando as APIs Google Cloud Vision e Imagga, ambas tem a mesma funcionalidade, extração de algumas labels de uma imagem, do cenário e da pessoa, no caso da Google, e apenas da pessoa no caso da Imagga. Ainda estamos decidindo qual das duas utilizar, devido a diferença de labels extraidas de cada uma.
+
+Junto ao código, estamos utilizando uma rede neural MLP Regressor (Multi-layer Perceptron) (MLP), e uma Decision Tree Regression (DTR), para a parte de aprendizado de uma base de dados de fotos como já especificado. Ainda estamos decidindo qual das duas utilizar, devido alguns erros de precisão.
+
+Um dos primeiros problemas enfrentados se encontra em quais labels utilizar na hora do treinamento dos dados e de teste, como dito anteriormente, as APIs não retornam as mesmas labels para diferente fotos, o que dificulta a padronização e o aprendizado da rede neural ou arvore de regressão. Até agora para contornar esse problema estamos analisando todas as labels retornadas, identificando a quantidade de vezes que aparecem em cada foto, e destacando aquelas que são mais frequentes. Após as mais frequentes serem armazenadas, formamos o primeiro input do algoritmo, e para as imagens que não tem uma das labels dentre as mais frequentes, zeramos seu valor. Assim a aparição de dados zerados nesse input pode ficar maior dependendo das fotos selecionadas para o aprendizado.
+
+Arquivos importantes:
+> data_input.csv: resultado da API Imagga de acordo com os labels previamente definidos
+> data_input_google.csv: resultado da API do Google
+> extracao-imagga.py: script em python para requisições a API Imagga, enviando as imagens e recebendo os dados gerados e armazenando os JSON no arquivo 'output-api-imagga.json'
+> followlikes.csv: para cada imagem, seguindo na ordem da numeração, uma linha corresponde aos numero de seguidores e quantidade de likes. Arquivo utilizado como input para a MLP e DTR
+> lercsv.py: script em python para ler um arquivo csv com as tags identificadas, agrupar e contabilizar. e escrever no arquivo 'data_input.csv' as labels escolhidas dentre as mais frequentes
+> main.py: script em python para requisições a API do Google, enviando as imagens e recebendo os dados gerados e armazenando no arquivo 'output-api-imagga.json'
+> train.py: script em python que realiza o treinamento da MLP ou DTR de acordo com os dados de uma API e exibe os resultados
+> trainning.csv: labels escolhidas dentre as mais frequentes
