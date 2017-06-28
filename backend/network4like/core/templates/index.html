@@ -13,7 +13,7 @@
 <body>
     <nav class="white" role="navigation">
         <div class="nav-wrapper container">
-            <a id="logo-container" href="index.html" class="brand-logo">Network4Like</a>
+            <a id="logo-container" href="{% url 'adm:index' %}" class="brand-logo">Network4Like</a>
             <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
         </div>
     </nav>
@@ -28,11 +28,12 @@
                     <h3 class="header col s12 light bold " style="top: 100px; font-weight: 500; position: relative">Ferramenta de auxilo à sua visibilidade no Instagram</h3>
                 </div>
                 <div class="row center" style="top: 100px; position: relative">
-                    <form action="/" method="post">{% csrf_token %}
+                    <form action="/" enctype="multipart/form-data" method="post">{% csrf_token %}
                         <div class="file-field input-field" style="width: 810px;float: left;">
                             <div class="btn indigo darken-4">
                                 <span>Insira aqui a sua foto!</span>
-                                <input type="file">
+                                <!-- {{context.file}} -->
+                                <input type="file" name="uploaded_file">
                             </div>
                             <div class="file-path-wrapper">
                                 <input class="file-path validate" type="text">

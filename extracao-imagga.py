@@ -14,3 +14,11 @@ response = requests.get('https://api.imagga.com/v1/tagging?url=https://raw.githu
 	
 j = response.json()
 fw.write(str(j).replace("'", "\"") + "\n")
+
+
+# Requisição passagem a imagem como arquivo, e não o link
+
+# response = requests.post('https://api.imagga.com/v1/content',
+	# auth=(api_key, api_secret),
+	# files={'image': open(image_path, 'r')})
+# print response.json()

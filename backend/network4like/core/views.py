@@ -1,14 +1,27 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
-
-# Create your views here.
+from core.forms import ImagemForm
+from core.models import Imagem
 
 def home(request):
-	if request.method == 'GET':
+	if request.method == 'POST':
+		# image = Imagem(file=request.FILES['uploaded_file'], qtd_likes=15) quantidade padrao para teste GUI
+		image = Imagem(file=request.FILES['uploaded_file'])
+		image.save()
+
+		images = Imagem.objects.get(id=image.id)
+		context = {
+			'images': images
+		}
+
+		return render(request, 'results.html', context)
+
+	else:
 		return render(request, 'index.html')
 
-	if request.method == 'POST':
-		print("AKJSHF")
-		print(request.__dict__)
-
-def teste(request):
-	print("AKJSHF")
+def exibir(request, pk):
+	image = Imagem.objects.get(id=pk)
+	context = {
+			'images': image
+	}
+	return render(request, 'results.html', context)
