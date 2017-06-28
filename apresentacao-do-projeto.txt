@@ -15,3 +15,7 @@ Arquivos importantes:
 > main.py: script em python para requisições a API do Google, enviando as imagens e recebendo os dados gerados e armazenando no arquivo 'output-api-imagga.json'
 > train.py: script em python que realiza o treinamento da MLP ou DTR de acordo com os dados de uma API e exibe os resultados
 > trainning.csv: labels escolhidas dentre as mais frequentes
+
+A pasta 'images' encontra o data set atual de imagens que estão sendo utilizadas na extração de label, treinamento e testes
+
+A pasta 'backend' encontra apenas uma base com o frontend da aplicação, uma interface de usuário para o upload da foto e exibição de resultados. O backend foi feito utilizando o framework Django, escrito tambem em Python
