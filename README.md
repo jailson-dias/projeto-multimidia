@@ -12,6 +12,8 @@ Junto ao código, estamos utilizando uma rede neural [MLP Regressor](http://scik
 
 Um dos primeiros problemas enfrentados se encontra em quais labels utilizar na hora do treinamento dos dados e de teste, como dito anteriormente, as APIs não retornam as mesmas labels para diferente fotos, o que dificulta a padronização e o aprendizado da rede neural ou arvore de regressão. Até agora para contornar esse problema estamos analisando todas as labels retornadas, identificando a quantidade de vezes que aparecem em cada foto, e destacando aquelas que são mais frequentes. Após as mais frequentes serem armazenadas, formamos o primeiro input do algoritmo, e para as imagens que não tem uma das labels dentre as mais frequentes, zeramos seu valor. Assim a aparição de dados zerados nesse input pode ficar maior dependendo das fotos selecionadas para o aprendizado.
 
+O data set de imagens atualmente está muito pequeno, o que pode favorecer os erros da MLP ou DTR. Posteriormente iremos procurar e adicionar novas.
+
 # Arquivos importantes:
 
 - [data_input.csv](https://github.com/msb55/projeto-multimidia/blob/master/data_input.csv): resultado da API Imagga de acordo com os labels previamente definidos
