@@ -16,7 +16,7 @@ def ler():
                 tags[tag] = 1
 
     tags = sorted(tags.items(), key=operator.itemgetter(1), reverse=True)
-    print(tags)
+    print(tags[:30])
     csvread.close()
 
 def escrever():
@@ -48,4 +48,4 @@ def escrever():
         writer.writerow(row)
     csvfile.close()
 
-escrever()
+ler()

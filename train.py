@@ -5,11 +5,11 @@ from sklearn.preprocessing import scale
 
 import random
 
-num_feats = 42
-margem_acerto = 100
+num_feats = 31
+margem_acerto = 0.02
 
 # lendo os dados vindo do google
-file = open('data_input.csv', 'r')
+file = open('data_input_google.csv', 'r')
 reader = csv.reader(file, delimiter=',')
 
 # lendo os dados de follow e likes
@@ -54,65 +54,84 @@ def normalize(lista):
 data = dados[:,:num_feats].astype(np.float)
 target = dados[:, num_feats].astype(np.float)
 
-# normalizando os seguidores
-data = np.c_[data[:,:-1],np.array(normalize(data[:,-1]))]
-# activation= 'tanh'
+# datanormalizado = normalize(data[:,0])
+datanormalizado = np.c_[data[:,:-1],normalize(data[:,-1])]
+targetnormalizado = np.array(normalize(target))
+# print(targetnormalizado)
 
+# for i in range(1,len(data[0,:])):
+#     # normalizando os seguidores
+#     datanormalizado = np.c_[datanormalizado,normalize(data[:,i])]
+
+# activation= 'tanh'
+# normalizado = np.c_[normalizado, data[:,1]]
+# print (datanormalizado)
+# """
 maior = 0
-valores = [65,46,35,20,8]
+valores = [27, 18, 14]
 
 vezes = 0
 
 def treinamento(data, target):
     global vezes, valores, maior
+    while(vezes < 60000):
+        
+        # Base da api de marcos
+        # numeros = [22, 27, 13, 14, 40] # 50% certos [36,25,8] # 50% certos [27,7,10] 50%
+        # [18, 29, 20, 40] 60% certos
 
-    # numeros = []
-    # quant = random.randint(2,15)
-    # for i in range(0,quant):
-    #     numeros.append(random.randint(3,150))
+        # Base da api do google
+        # [10, 8, 43, 39, 19, 23] 60% certos
+        numeros = [10, 8, 43, 39, 19, 23]
+        # quant = random.randint(3,6)
+        # for i in range(0,quant):
+        #     numeros.append(random.randint(5,45))
 
-    # Treinando a rede neural
-    reg = MLPRegressor(solver='lbfgs',alpha=1e-5, learning_rate="constant", hidden_layer_sizes=valores, random_state=2)
-    reg.fit(data[10:], target[10:])
-
-
-    # print (reg.loss_)
-    # verifica quantos acertos no conjunto de treinamento estao classificados errados
-    resultado = reg.predict(data[10:]).tolist()
-    targetlist = target[10:].tolist()
-    for i in range(0,len(resultado)):
-        if abs(resultado[i] - targetlist[i]) < margem_acerto:
-            print ('Resultado: %.2f, Esperado: %.2f (Certo)' % (resultado[i], targetlist[i]))
-        else:
-            print ('Resultado: %.2f, Esperado: %.2f         (Errado)' % (resultado[i], targetlist[i]))
+        # Treinando a rede neural
+        reg = MLPRegressor(solver='lbfgs',alpha=1e-5, learning_rate="constant", hidden_layer_sizes=numeros, random_state=2)
+        reg.fit(data[10:], target[10:])
 
 
-    print ("Conjunto de Teste")
+        # print (reg.loss_)
+        # verifica quantos acertos no conjunto de treinamento estao classificados errados
+        resultado = reg.predict(data[10:]).tolist()
+        targetlist = target[10:].tolist()
+        for i in range(0,len(resultado)):
+            if abs(resultado[i] - targetlist[i]) < margem_acerto:
+                print ('Resultado: %.2f, Esperado: %.2f (Certo)' % (resultado[i], targetlist[i]))
+            else:
+                print ('Resultado: %.2f, Esperado: %.2f         (Errado)' % (resultado[i], targetlist[i]))
 
-    # print (data[:5], "\n\n")
-    # print (np.c_[data[:5],data[28:]], "\n\n")
-    # verifica quantos acertos no conjunto de teste estao classificados errados
-    resultado = reg.predict(data[:10]).tolist()
-    # print (data[:10])
-    targetlist = target[:10].tolist()#  + target[:10].tolist()
-    # print (reg.score(data[28:],target[28:]))
-    certos = 0
-    for i in range(0,len(resultado)):
-        if abs(resultado[i] - targetlist[i]) < margem_acerto:
-            certos += 1
-            print ('Resultado: %.2f, Esperado: %.2f (Certo)' % (resultado[i], targetlist[i]))
-        else:
-            print ('Resultado: %.2f, Esperado: %.2f         (Errado)' % (resultado[i], targetlist[i]))
 
-    if certos > maior:
-        valores = numeros
-        maior = certos
-        print (valores, "melhor")
-    
-    # vezes += 1
-    # if vezes < 20:
+        print ("Conjunto de Teste")
+
+        # print (data[:5], "\n\n")
+        # print (np.c_[data[:5],data[28:]], "\n\n")
+        # verifica quantos acertos no conjunto de teste estao classificados errados
+        resultado = reg.predict(data[:10]).tolist()
+        # print (data[:10])
+        targetlist = target[:10].tolist()#  + target[:10].tolist()
+        # print (reg.score(data[28:],target[28:]))
+        certos = 0
+        for i in range(0,len(resultado)):
+            if abs(resultado[i] - targetlist[i]) < margem_acerto:
+                certos += 1
+                print ('Resultado: %.2f, Esperado: %.2f (Certo)' % (resultado[i], targetlist[i]))
+            else:
+                print ('Resultado: %.2f, Esperado: %.2f         (Errado)' % (resultado[i], targetlist[i]))
+
+        print (numeros, "atual")
+        if certos > maior:
+            valores = numeros
+            maior = certos
+            print (valores, "melhor")
+        
+        print ("valores", valores, "quantidade",maior, "interações",vezes)
+        
+        # vezes += 1
+        vezes = 60000
+    # if vezes < 6000:
     #     treinamento(data, target)
 
-treinamento(data, target)
-print ("valore", valores, "quantidade",maior)
+treinamento(datanormalizado, targetnormalizado)
 # """
