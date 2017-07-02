@@ -1,4 +1,4 @@
-Em resumo, a proposta do projeto é estimar a quantidade de likes que, dada uma foto que será postada no Instagram, e o número de followers do usuário, o sistema preditar o número de likes que esta foto receberá. O algoritmo está fechado para um tipo de foto, mulheres fitness que postam fotos na academia.
+﻿Em resumo, a proposta do projeto é estimar a quantidade de likes que, dada uma foto que será postada no Instagram, e o número de followers do usuário, o sistema preditar o número de likes que esta foto receberá. O algoritmo está fechado para um tipo de foto, mulheres fitness que postam fotos na academia.
 
 O projeto foi feito em Python, e utilizando as APIs Google Cloud Vision e Imagga, ambas tem a mesma funcionalidade, extração de algumas labels de uma imagem, do cenário e da pessoa, no caso da Google, e apenas da pessoa no caso da Imagga. Ainda estamos decidindo qual das duas utilizar, devido a diferença de labels extraidas de cada uma.
 
@@ -17,5 +17,8 @@ Arquivos importantes:
 - trainning.csv: labels escolhidas dentre as mais frequentes
 
 A pasta 'images' encontra o data set atual de imagens que estão sendo utilizadas na extração de label, treinamento e testes
+
+
+
 
 A pasta 'backend' encontra apenas uma base com o frontend da aplicação, uma interface de usuário para o upload da foto e exibição de resultados. O backend foi feito utilizando o framework Django, escrito tambem em Python
