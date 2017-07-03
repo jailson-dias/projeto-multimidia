@@ -5,15 +5,19 @@ api_key = 'acc_05cd943bb73fdbb'
 api_secret = 'bf19cef5ee73254c26e47746004a8155'
 image_url_base = 'https://raw.githubusercontent.com/msb55/projeto-multimidia/master/images/image001.jpg'
 
-fw = open("output.json", 'a')
+fw = open("output.json", 'w')
 links = open("links-imgs.txt", 'r').readlines()
-
+o = []
 for line in links:
 	response = requests.get('https://api.imagga.com/v1/tagging?url=%s' % line.strip(), 
 		auth=(api_key, api_secret))
 
 	j = response.json()
-	fw.write(str(j).replace("'", "\"") + "\n")
+	fw.write(str(j).replace("'", "\"").replace("\n", "").replace("\"s ", "'s ").replace("None", "\"None\""))
+	o.append(str(j).replace("'", "\"").replace("\n", "").replace("\"s ", "'s ").replace("None", "\"None\""))
+
+f = open('teste-saida.json', 'a')
+f.write(str(o).replace("'", "").replace("\s", "'s").replace("}]}]},]", "}]}]}]"))
 
 # Requisição passagem a imagem como arquivo, e não o link
 
