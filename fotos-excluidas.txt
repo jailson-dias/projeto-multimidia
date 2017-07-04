@@ -1,0 +1,17 @@
+Numero da foto: 43
+Numero de zeros: 13
+
+Numero da foto: 50
+Numero de zeros: 11
+
+Numero da foto: 52
+Numero de zeros: 12
+
+Numero da foto: 131
+Numero de zeros: 12
+
+Numero da foto: 145
+Numero de zeros: 19
+
+Numero da foto: 146
+Numero de zeros: 12
