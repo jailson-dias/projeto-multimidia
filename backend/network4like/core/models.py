@@ -4,3 +4,4 @@ from django.db import models
 class Imagem(models.Model):
 	file = models.ImageField("Arquivo", default="")
 	qtd_likes = models.PositiveIntegerField('Quantidade de Likes', null=True, blank=True)
+	qtd_followers = models.PositiveIntegerField('Quantidade de Followers')

@@ -24,44 +24,64 @@
                 <!-- <br><br> -->
                 <h1 class="header center  text-lighten-2">Network4Like</h1>
                 <!-- <h1></h1> -->
-                <div class="row center" style="">
-                    <h3 class="header col s12 light bold " style="top: 100px; font-weight: 500; position: relative">Ferramenta de auxilo à sua visibilidade no Instagram</h3>
+                <div class="row center" style="top: 150px; position: relative">
+                    <h3 class="header col s12 light" style="font-weight: 500; ">Ferramenta de auxilo à sua visibilidade no Instagram</h3>
                 </div>
-                <div class="row center" style="top: 100px; position: relative">
-                    <form action="/" enctype="multipart/form-data" method="post">{% csrf_token %}
-                        <div class="file-field input-field" style="width: 810px;float: left;">
-                            <div class="btn indigo darken-4">
-                                <span>Insira aqui a sua foto!</span>
-                                <!-- {{context.file}} -->
-                                <input type="file" name="uploaded_file">
-                            </div>
-                            <div class="file-path-wrapper">
-                                <input class="file-path validate" type="text">
-                            </div>
-                        </div>
-                        <div>
-                            <button class="btn waves-effect waves-light indigo darken-4" type="submit" name="action" style="float: left;">Submit
-                            <i class="material-icons right">send</i>
-                            </button>
-                        </div>  
-                    </form>
-                </div>
+                
             </div>
         </div>
         <div class="parallax"><img class="responsive-img" src="../static/image/background.jpg" alt="Unsplashed background img 1"></div>
     </div>
 
-    <div class="container" style="height: 300px">
-        <div class="section" style="text-align: center;position: relative;top: 90px;">
-        <h3>Quantos likes sua foto terá no Instagram?</h3>
+    <div class="container" style="height: 460px; ">
+        <div class="section" style="text-align: center;">
+        <h3 style="font-size: 2.5rem;">Qual das suas fotos terá mais likes no Instagram?</h3>
+        </div>
+        <div class="row center" style="margin: 0 222px;">
+            <form action="/" enctype="multipart/form-data" method="post">{% csrf_token %}
+                 <div class="file-field input-field" style="width: 500px; float: left;">
+                    <div class="btn teal darken-1" style="margin-top: 8px;height: 36px;line-height: 36px;margin-right: 10px;">
+                        <span>Primeira foto</span>
+                        <input type="file" name="uploaded_file_1" required>
+                    </div>
+                    <div class="file-path-wrapper" style="padding: 0px;">
+                        <input class="file-path validate" type="text">
+                    </div>
+                </div>
+                <div class="file-field input-field" style="width: 500px; float: left;">
+                    <div class="btn teal darken-1" style="margin-top: 8px;height: 36px;line-height: 36px;margin-right: 10px;">
+                        <span>Segunda foto</span>
+                        <input type="file" name="uploaded_file_2" >
+                    </div>
+                    <div class="file-path-wrapper" style="padding: 0px;">
+                        <input class="file-path validate" type="text">
+                    </div>
+                </div>
+                <div class="file-field input-field" style="width: 500px; float: left;">
+                    <div class="btn teal darken-1" style="margin-top: 8px;height: 36px;line-height: 36px;margin-right: 10px;">
+                        <span>Terceira foto</span>
+                        <input type="file" name="uploaded_file_3" >
+                    </div>
+                    <div class="file-path-wrapper" style="padding: 0px;">
+                        <input class="file-path validate" type="text">
+                    </div>
+                </div> 
+                <div class="input-field"  style="width: 200px; float: left;">
+                    <input type="number" name="qtd_followers" id="followers" required>
+                    <label for="followers">Quantidade de Followers</label>
+                </div>
+                <button class="btn waves-effect waves-light teal darken-1" type="submit" name="action" style="margin-top: 25px;float: right;">Enviar
+                    <i class="material-icons right">send</i>
+                </button>  
+            </form>
         </div>
     </div>
 
-    <footer class="page-footer teal ">
+    <footer class="page-footer teal darken-4">
         <div class="container">
             <div class="row">
                 <div class="col l6 s12">
-                    <h5 class="white-text">About</h5>
+                    <h5 class="white-text">Sobre</h5>
                     <p class="grey-text text-lighten-4">Projeto desenvolvido para a disciplina de Introdução a Multimidia. Utilizando API Google Plataform e uma rede neural desenvolvida em python</p>
                 </div>
                 <div class="col l3 s12">
