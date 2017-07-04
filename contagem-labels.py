@@ -22,6 +22,9 @@ import operator
 
 def remover_fotos():
 	lista = [
+	"https://raw.githubusercontent.com/msb55/projeto-multimidia/frontend/images/image001.jpg",
+	"https://raw.githubusercontent.com/msb55/projeto-multimidia/frontend/images/image002.jpg",
+	"https://raw.githubusercontent.com/msb55/projeto-multimidia/frontend/images/image003.jpg",
 	"https://raw.githubusercontent.com/msb55/projeto-multimidia/frontend/images/image043.jpg",
 	"https://raw.githubusercontent.com/msb55/projeto-multimidia/frontend/images/image050.jpg",
 	"https://raw.githubusercontent.com/msb55/projeto-multimidia/frontend/images/image052.jpg",

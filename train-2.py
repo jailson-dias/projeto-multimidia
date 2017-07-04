@@ -15,7 +15,7 @@ def treinamento(input_predict):
 # num_feats = 31 # google
     # num_feats = 42 # imagga
     num_feats = 20 # imagga_update
-    margem_acerto = 0.8 # para dados normalizados
+    margem_acerto = 0.8 # para dados normalizados % [0, 100]
     # margem_acerto = 5000 # para dados não normalizados
 
     # lendo os dados vindo da api
@@ -45,6 +45,10 @@ def treinamento(input_predict):
     datanormalizado = normalize(data[:,0])
     # targetnormalizado = np.array(normalize(target))
     targetnormalizado = np.array([((x[1]*100)/x[0]) for x in readerfollowlike[1:].astype(np.float)]) # likes agora eh a porcetagem relativa a qtde de followers
+    # print(max(targetnormalizado))
+    # print(min(targetnormalizado))
+    # a = np.sort(targetnormalizado)
+    # print(a)
     # print(targetnormalizado)
 
     for i in range(1,len(data[0,:])):
@@ -63,21 +67,24 @@ def treinamento(input_predict):
         # [36,25,8] 50% acertos 
         # [27,7,10] 50% acertos
         # [18, 29, 20, 40] 60% acertos
-        numeros = [43, 39, 19] # tamanho das camadas da MLP
+        # numeros = [36, 39, 36] # tamanho das camadas da MLP
+        numeros = [37,76,68,59,74] # tamanho das camadas da MLP
 
         # Base da api Imagga (update)
-        # [43, 39, 19] 97% treinamento 60% teste (!)
+        # [43, 39, 19] 95% treinamento 60% teste (!)
         # Base da api do Google
         # [10, 8, 43, 39, 19, 23] 60% certos
         # numeros = [10, 8, 43, 39, 19, 23]
 
         # Treinando a rede neural
         reg = MLPRegressor(solver='lbfgs',alpha=1e-5, learning_rate="constant", hidden_layer_sizes=numeros, random_state=2)
-        reg.fit(datanormalizado[:142], targetnormalizado[:142])
+        reg.fit(datanormalizado[15:], targetnormalizado[15:])
 
         # verifica quantos acertos no conjunto de treinamento estao classificados errados
-        resultado = reg.predict(datanormalizado[:142]).tolist()
-        targetlist = targetnormalizado[:142].tolist()
+        resultado = reg.predict(datanormalizado[15:]).tolist()
+        targetlist = targetnormalizado[15:].tolist()
+        # resultado = reg.predict(datanormalizado[:139]).tolist()
+        # targetlist = targetnormalizado[:139].tolist()
         certos = 0
         for i in range(0,len(resultado)):
             if abs(resultado[i] - targetlist[i]) < margem_acerto:
@@ -98,8 +105,10 @@ def treinamento(input_predict):
                 # print ('Resultado: %.2f (APLICAÇÃO)' % resultado[i])
 
         # verifica quantos acertos no conjunto de teste estao classificados errados
-        resultado = reg.predict(datanormalizado[142:]).tolist()
-        targetlist = targetnormalizado[142:].tolist()
+        resultado = reg.predict(datanormalizado[:15]).tolist()
+        targetlist = targetnormalizado[:15].tolist()
+        # resultado = reg.predict(datanormalizado[139:]).tolist()
+        # targetlist = targetnormalizado[139:].tolist()
         certos_teste = 0
         for i in range(0,len(resultado)):
             if abs(resultado[i] - targetlist[i]) < margem_acerto:
@@ -109,7 +118,7 @@ def treinamento(input_predict):
                 print ('Resultado: %.2f, Esperado: %.2f         (Errado)' % (resultado[i], targetlist[i]))
                
         print ((certos*100)/142, "'%' certos")
-        print ((certos_teste*100)/5, "'%' certos")
+        print ((certos_teste*100)/15, "'%' certos")
         print (numeros, " camada")
         # if certos > maior:
         #     valores = numeros
