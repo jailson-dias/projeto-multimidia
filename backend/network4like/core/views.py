@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from core.forms import ImagemForm
 from core.models import Imagem
+from sklearn.externals import joblib
 
 def home(request):
 	if request.method == 'POST':
@@ -13,6 +14,11 @@ def home(request):
 		context = {
 			'images': images
 		}
+        
+        #carregar modelo
+        #passar caminho para o .pkl
+        # reg = joblib.load('caminho/para/modlel.pkl') 
+        #pode chamar o metodo predict normalmente
 
 		return render(request, 'results.html', context)
 

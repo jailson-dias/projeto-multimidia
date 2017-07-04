@@ -1,6 +1,7 @@
 import csv
 import numpy as np
 from sklearn.neural_network import MLPRegressor
+from sklearn.externals import joblib
 
 import random
 
@@ -67,6 +68,9 @@ def treinamento(data, target):
         # Treinando a rede neural
         reg = MLPRegressor(solver='lbfgs',alpha=1e-5, learning_rate="constant", hidden_layer_sizes=numeros, random_state=2)
         reg.fit(data[10:], target[10:])
+        # save model
+        joblib.dump(reg, 'model.pkl') 
+        
 
         # verifica quantos acertos no conjunto de treinamento estao classificados errados
         resultado = reg.predict(data[10:]).tolist()
