@@ -86,6 +86,7 @@ def treinamento(input_predict):
         # resultado = reg.predict(datanormalizado[:139]).tolist()
         # targetlist = targetnormalizado[:139].tolist()
         certos = 0
+        quant_certos = len(targetlist)
         for i in range(0,len(resultado)):
             if abs(resultado[i] - targetlist[i]) < margem_acerto:
                 certos += 1
@@ -110,6 +111,7 @@ def treinamento(input_predict):
         # resultado = reg.predict(datanormalizado[139:]).tolist()
         # targetlist = targetnormalizado[139:].tolist()
         certos_teste = 0
+        quant_teste = len(targetlist)
         for i in range(0,len(resultado)):
             if abs(resultado[i] - targetlist[i]) < margem_acerto:
                 certos_teste += 1
@@ -117,8 +119,8 @@ def treinamento(input_predict):
             else:
                 print ('Resultado: %.2f, Esperado: %.2f         (Errado)' % (resultado[i], targetlist[i]))
                
-        print ((certos*100)/142, "'%' certos")
-        print ((certos_teste*100)/15, "'%' certos")
+        print ((certos*100)/quant_certos, "'%' certos")
+        print ((certos_teste*100)/quant_teste, "'%' certos")
         print (numeros, " camada")
         # if certos > maior:
         #     valores = numeros
