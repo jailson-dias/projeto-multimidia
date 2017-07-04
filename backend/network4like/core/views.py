@@ -8,6 +8,8 @@ from core.models import Imagem
 import requests
 import json
 
+import imp
+
 def home(request):
 	if request.method == 'POST':
 		image = Imagem(file=request.FILES['uploaded_file_1'], qtd_followers=request.POST['qtd_followers'])
@@ -16,7 +18,9 @@ def home(request):
 		context = {
 			'images': image
 		}		
-
+		prefix = 'C:\\Users\\barre\\Documents\\projeto-multimidia\\projeto-multimidia\\backend\\network4like\\media\\'
+		i = open(prefix + image.file.name, 'r', encoding="utf8")
+		print(i)
 		api_key = 'acc_05cd943bb73fdbb'
 		api_secret = 'bf19cef5ee73254c26e47746004a8155'
 		
@@ -24,7 +28,7 @@ def home(request):
 		print(image.file.url)
 		response = requests.post('https://api.imagga.com/v1/content',
 			auth=(api_key, api_secret),
-			files={'image': open(image.file.url, 'r')})
+			files={'image': open(prefix + image.file.name, 'r')})
 		result = response.json()
 
 		columns = ['person', 'adult', 'people', 'caucasian', 'attractive', 
@@ -39,6 +43,11 @@ def home(request):
 
 		print(row)
 
+		row.append(int(request.POST['qtd_followers']))
+		print(row)
+		script = imp.load_source('resultado', 'C:\\Users\\barre\\Documents\\projeto-multimidia\\projeto-multimidia\\resultado.py')
+		# likes = script.treinamento(row)
+		print('NUMPY???')
 		return render(request, 'results.html', context)
 
 	else:
