@@ -17,11 +17,11 @@ def normalize(lista):
 def treinamento(input_predict):
     num_feats = 21
     # lendo os dados vindo da api
-    file = open('data_input_update.csv', 'r')
+    file = open('C:\\Users\\barre\\Documents\\projeto-multimidia\\projeto-multimidia\\data_input_update.csv', 'r')
     reader = csv.reader(file, delimiter=',')
 
     # lendo os dados de followers e likes
-    followlike = open('followlikes_update.csv', 'r')
+    followlike = open('C:\\Users\\barre\\Documents\\projeto-multimidia\\projeto-multimidia\\followlikes_update.csv', 'r')
     readerfollowlike = csv.reader(followlike, delimiter=',')
 
     # colocando os dados em um array do numpy
@@ -72,8 +72,8 @@ def treinamento(input_predict):
     print ("RESULTADO")
     resultado = reg.predict(datanormalizado[144].reshape(1, -1)).tolist()
     print(resultado)
-    print(input_predict[20])
-    print(np.round((resultado[0]/100) * input_predict[20],decimals=2))
+    # print(input_predict[20])
+    # print(np.round((resultado[0]/100) * input_predict[20],decimals=2))
 
     return (np.round((resultado[0]/100) * input_predict[20],decimals=2))
 

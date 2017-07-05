@@ -9,28 +9,32 @@ import requests
 import json
 
 import imp
+import codecs
 
 def home(request):
 	if request.method == 'POST':
 		image = Imagem(file=request.FILES['uploaded_file_1'], qtd_followers=request.POST['qtd_followers'])
 		image.save()
-
-		context = {
-			'images': image
-		}		
+		
 		prefix = 'C:\\Users\\barre\\Documents\\projeto-multimidia\\projeto-multimidia\\backend\\network4like\\media\\'
-		i = open(prefix + image.file.name, 'r', encoding="utf8")
-		print(i)
+		i = open(prefix + image.file.name, 'rb')
+
 		api_key = 'acc_05cd943bb73fdbb'
 		api_secret = 'bf19cef5ee73254c26e47746004a8155'
 		
-		# print('AISUHDIASUDH')
 		print(image.file.url)
 		response = requests.post('https://api.imagga.com/v1/content',
 			auth=(api_key, api_secret),
-			files={'image': open(prefix + image.file.name, 'r')})
+			files={'image': i})
 		result = response.json()
 
+		content_id = result['uploaded'][0]['id']
+
+		response = requests.get('https://api.imagga.com/v1/tagging?content=%s' % content_id,
+                        auth=(api_key, api_secret))
+
+		result = response.json()
+		print(str(result))
 		columns = ['person', 'adult', 'people', 'caucasian', 'attractive', 
 		'happy', 'lifestyle', 'pretty', 'smile', 'model', 'portrait', 'lady', 
 		'women', 'body', 'fashion', 'human', 'smiling', 'one', 'sexy', 'cute']
@@ -41,13 +45,22 @@ def home(request):
 			if len([row.append(x["confidence"]) for x in tags if x['tag'] == column]) <= 0:
 				row.append(0)
 
-		print(row)
+		# print(row)
 
 		row.append(int(request.POST['qtd_followers']))
 		print(row)
 		script = imp.load_source('resultado', 'C:\\Users\\barre\\Documents\\projeto-multimidia\\projeto-multimidia\\resultado.py')
-		# likes = script.treinamento(row)
+		likes = script.treinamento(row)
 		print('NUMPY???')
+		print(str(likes))
+		print(str(result))	
+		
+		image.qtd_likes = int(likes)
+		image.save()
+		context = {
+			'images': image
+		}
+
 		return render(request, 'results.html', context)
 
 	else:
