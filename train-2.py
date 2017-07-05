@@ -16,7 +16,7 @@ def treinamento(input_predict):
 # num_feats = 31 # google
     # num_feats = 42 # imagga
     num_feats = 21 # imagga_update
-    margem_acerto = 0.1 # para dados normalizados % [0, 100]
+    margem_acerto = 0.3 # para dados normalizados % [0, 100]
     # margem_acerto = 5000 # para dados não normalizados
 
     # lendo os dados vindo da api
@@ -93,10 +93,13 @@ def treinamento(input_predict):
         # numeros = [50, 20, 72, 32, 16, 17, 29, 32, 78, 82, 77, 94, 97, 75]
         # numeros = [15, 6, 5]
         # numeros = [20,37]
-        numeros = [4, 89]
+        # numeros = [4, 89]
         # numeros = [23,43,12,70]
         # numeros = [39,38,52,44,3,55,70]
         # numeros = [38, 61, 48, 22, 24, 55, 60, 40, 58, 5, 80, 5, 49]
+        # numeros = [95, 48, 103, 69, 28, 41, 6, 9, 37, 59, 55, 9] # 40/144
+        # numeros = [51, 64, 70, 6] # 43/144
+        numeros = [116, 103, 28, 13, 27, 5] # 63/144 (0.3)
 
         # Treinando a rede neural
         reg = MLPRegressor(
@@ -106,19 +109,19 @@ def treinamento(input_predict):
             # learning_rate="tanh", 
             hidden_layer_sizes=numeros, 
             random_state=200)
-        reg.fit(datanormalizado[:100], targetnormalizado[:100])
-        joblib.dump(reg, 'model.pkl')
+        reg.fit(datanormalizado[:], targetnormalizado[:])
+        # joblib.dump(reg, 'model.pkl')
 
         # verifica quantos acertos no conjunto de treinamento estao classificados errados
         # resultado = reg.predict(datanormalizado[15:]).tolist()
         # targetlist = targetnormalizado[15:].tolist()
-        resultado = reg.predict(datanormalizado[:100]).tolist()
-        targetlist = targetnormalizado[:100].tolist()
-        certos = 0
-        quant_certos = len(targetlist)
-        for i in range(0,len(resultado)):
-            if abs(resultado[i] - targetlist[i]) < margem_acerto:
-                certos += 1
+        # resultado = reg.predict(datanormalizado[:]).tolist()
+        # targetlist = targetnormalizado[:].tolist()
+        # certos = 0
+        # quant_certos = len(targetlist)
+        # for i in range(0,len(resultado)):
+            # if abs(resultado[i] - targetlist[i]) < margem_acerto:
+                # certos += 1
                 # print ('Resultado: %.2f, Esperado: %.2f (Certo)' % (resultado[i], targetlist[i]))
             # else:
                 # print ('Resultado: %.2f, Esperado: %.2f         (Errado)' % (resultado[i], targetlist[i]))
@@ -137,10 +140,10 @@ def treinamento(input_predict):
         # verifica quantos acertos no conjunto de teste estao classificados errados
         # resultado = reg.predict(datanormalizado[:15]).tolist()
         # targetlist = targetnormalizado[:15].tolist()
-        followerslist = readerfollowlike[101:,0].astype(np.float).tolist()
+        followerslist = readerfollowlike[1:,0].astype(np.float).tolist()
         # print(followerslist)
-        resultado = reg.predict(datanormalizado[100:]).tolist()
-        targetlist = targetnormalizado[100:].tolist()
+        resultado = reg.predict(datanormalizado[:]).tolist()
+        targetlist = targetnormalizado[:].tolist()
         certos_teste = 0
         quant_teste = len(targetlist)
         for i in range(0,len(resultado)):
@@ -152,7 +155,7 @@ def treinamento(input_predict):
                 # print ('Resultado: %.2f, Esperado: %.2f         (Errado)' % (resultado[i], targetlist[i]))
                 print ('Resultado: %.2f --> %.2f, Esperado: %.2f --> %.2f        (Errado)' % ((resultado[i]/100)*followerslist[i], resultado[i], (targetlist[i]/100)*followerslist[i], targetlist[i]))
                
-        print ((certos*100)/quant_certos, "'%' certos")
+        # print ((certos*100)/quant_certos, "'%' certos")
         print ((certos_teste*100)/quant_teste, "'%' certos")
         print (numeros, " camada")
         if certos_teste > maior:

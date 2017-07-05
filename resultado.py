@@ -58,7 +58,7 @@ def treinamento(input_predict):
     vezes = 0 # repetição dos testes
 
     # camada escondida da rede (tamanho, qtde_neuronios)
-    numeros = [4, 89]
+    numeros = [116, 103, 28, 13, 27, 5]
 
     # Treinando a rede neural
     reg = MLPRegressor(
